@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>LB_3; Student: Trotsenko Daniil</title>
+
+        <meta name="viewport" content="width=device-width, 
+        initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+
+        <script>
+            function dayOrNight(){
+                temp_date=new Date();
+                hours=temp_date.getHours();
+                
+                if (hours >=  6 && hours <= 20) {
+                    document.body.background="2bg.png";
+                    day_time = "дневная тема";
+                }
+                else{
+                    document.body.background="1bg.png";
+                    document.body.text="white";
+                    day_time = "ночная тема";
+                    
+                }
+        
+            }
+        </script>
+        
+    </head>
+    <body onload="dayOrNight()">
+
+        <h2>Страница меняет тему на дневную и ночную в зависимости от времени суток</h2>
+
+        <h2>Таблица, заполняется случайными числами из выбраного диапазона</h2>
+
+        <script>
+            function drawTable(min, max) {
+                var wnd=window.open("", "example", "width='100', height='100pt'");
+                wnd.focus();
+                wnd.document.open();
+
+                min = Math.ceil(min);
+                max = Math.floor(max);
+
+                wnd.document.write ('<table width="200pt" height="200pt" text-align="center" border="1">');
+                for (i=1; i<11; i++) {
+                    wnd.document.writeln("<tr>");
+                    for (j=1; j<11; j++)
+                        wnd.document.write("<td>"+(Math.floor(Math.random() * (max - min)) + min)+"<\/td>");
+                        wnd.document.writeln("<\/tr>");
+            }
+            wnd.document.write ("<\/table> ");
+            wnd.document.close();
+            }
+
+        </script>
+
+        <form>
+            <label for="min_value">Введите минимальное значение</label><br>
+            <input type="text" value="0" id="min_value" onclick="document.forms[0].elements[0].value=''"><br>
+            
+            <label for="max_value">Введите максимальное значение</label><br>
+            <input type="text" value="0" id="max_value" onclick="document.forms[0].elements[1].value =''"><br>
+            
+            <input type="button" value="Заполнить таблицу" onclick="drawTable(document.forms[0].elements[0].value, document.forms[0].elements[1].value)">
+        </form>
+
+        <h2>Анимация, скорость воспроизведения можно изменить нажав кнопку</h2>
+
+        <img src="b1.gif" id="banana">
+
+        <form>
+            <input type="button" value="Изменить скорость воспроизведения" onClick="clearInterval(interval_id); interval_id = setInterval(changeFrames, window.prompt('задайте интервал в мс'));">
+        </form>
+
+        <script>
+           var frames = ["b1.gif", "b2.gif", "b3.gif", "b4.gif", "b4.gif", "b3.gif", "b2.gif", "b1.gif"];
+           var curFrame = document.getElementById('banana');
+           var i = 0;
+           function changeFrames(){
+            i++;
+            if (i >= frames.length){
+                i = 0;
+            }
+            curFrame.src = frames[i];
+           }
+           interval_id = setInterval(changeFrames, 150);
+        </script>
+    </body>
+</html>
